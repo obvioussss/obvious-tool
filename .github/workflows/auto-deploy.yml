@@ -19,12 +19,26 @@ jobs:
           -H "Authorization: Bearer ${{ secrets.RENDER_TOKEN }}" \
           -H "Accept: application/json"
 
-      - name: Trigger Vercel redeploy
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      - name: Build and deploy frontend to Vercel (production)
+        working-directory: obvious-tool/frontend
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          echo "Triggering Vercel frontend redeploy..."
-          curl -X POST "https://api.vercel.com/v13/deployments" \
-          -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
-          -H "Content-Type: application/json" \
-          -d '{"name":"obvious-tool","gitSource":"github","target":"production"}'
+          echo "Pulling Vercel env (production)"
+          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          echo "Installing deps"
+          npm ci || npm i
+          echo "Building"
+          vercel build --prod --token=$VERCEL_TOKEN
+          echo "Deploying prebuilt"
+          vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
 
