@@ -2,10 +2,11 @@ services:
   - type: web
     name: obvious-tool-backend
     env: python
+    pythonVersion: 3.11.0
     plan: free
     rootDir: obvious-tool/backend
     buildCommand: pip install -r requirements.txt
-    startCommand: python start_backend.py
+    startCommand: uvicorn start_backend:app --host 0.0.0.0 --port $PORT
     autoDeploy: true
     envVars:
       - key: SINOPIA_BACKEND_URL
