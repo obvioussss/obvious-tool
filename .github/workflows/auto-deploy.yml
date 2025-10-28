@@ -1,0 +1,30 @@
+name: Auto Deploy (Render + Vercel)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Trigger Render redeploy
+        run: |
+          echo "Triggering Render backend redeploy..."
+          curl -X POST "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys" \
+          -H "Authorization: Bearer ${{ secrets.RENDER_TOKEN }}" \
+          -H "Accept: application/json"
+
+      - name: Trigger Vercel redeploy
+        run: |
+          echo "Triggering Vercel frontend redeploy..."
+          curl -X POST "https://api.vercel.com/v13/deployments" \
+          -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{"name":"obvious-tool","gitSource":"github","target":"production"}'
+
+
