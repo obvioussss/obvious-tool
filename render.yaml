@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: obvious-tool-backend
+    env: python
+    plan: free
+    rootDir: obvious-tool/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python start_backend.py
+    autoDeploy: true
+    envVars:
+      - key: SINOPIA_BACKEND_URL
+        value: https://sinopia-backend.onrender.com
+
+
