@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/sinopia/assets/(.*)", "destination": "/sinopia/assets/$1" },
     { "source": "/sinopia/(.*)", "destination": "/sinopia/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
