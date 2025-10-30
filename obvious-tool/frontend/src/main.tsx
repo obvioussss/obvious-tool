@@ -22,7 +22,7 @@ function Home() {
 function Sinopia() {
   return (
     <iframe
-      src="https://sinopiaclaques.vercel.app/sinopia"
+      src="/sinopia/index.html"
       title="Sinopia"
       className="app-frame"
     />
