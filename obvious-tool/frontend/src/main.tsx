@@ -23,7 +23,7 @@ function Home() {
 function Sinopia() {
   return (
     <iframe
-      src="https://sinopiaclaques.vercel.app"
+      src="https://sinopiaclaques.vercel.app/apps/sinopia"
       title="Sinopia"
       style={{ width: '100%', height: '100vh', border: 'none' }}
     />
