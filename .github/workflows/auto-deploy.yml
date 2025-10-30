@@ -31,14 +31,15 @@ jobs:
         working-directory: obvious-tool/frontend
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
           echo "Pulling Vercel env (production)"
-          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          vercel pull --yes --environment=production --token=$VERCEL_TOKEN --project $VERCEL_PROJECT_ID
           echo "Installing deps"
           npm ci || npm i
           echo "Building"
-          vercel build --prod --token=$VERCEL_TOKEN
+          vercel build --prod --token=$VERCEL_TOKEN --project $VERCEL_PROJECT_ID
           echo "Deploying prebuilt"
-          vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+          vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN --project $VERCEL_PROJECT_ID
 
 
