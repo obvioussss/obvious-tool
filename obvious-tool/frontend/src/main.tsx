@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './styles.css'
+import FluxCanvas from './pages/FluxCanvas'
 
 function Home() {
   return (
@@ -13,6 +14,11 @@ function Home() {
           <h3 className="card-title">Sinopia GUI</h3>
           <p className="subtitle">Designer visuel de zones et prompts, export ZIP compatible pipeline.</p>
           <span className="chip">/sinopia</span>
+        </Link>
+        <Link to="/apps/flux" className="card">
+          <h3 className="card-title">Flux Canvas</h3>
+          <p className="subtitle">Studio Flux: prompts, aperçus rapides et stub d'entraînement LoRA.</p>
+          <span className="chip">/flux</span>
         </Link>
       </div>
     </div>
@@ -35,6 +41,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/apps/sinopia" element={<Sinopia />} />
+        <Route path="/apps/flux" element={<FluxCanvas />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
